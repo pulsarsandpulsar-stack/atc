@@ -1,0 +1,337 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-alt: #eceef1;
+  --border: #d7dbe1;
+  --text: #1c2128;
+  --text-muted: #5b6270;
+  --accent: #3457d5;
+  --accent-contrast: #ffffff;
+  --correct: #2e8b47;
+  --incorrect: #d43d3d;
+  --cell-blank: #e7e9ed;
+  --cell-target: #fff4d6;
+  --cell-target-border: #e0a800;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="dark"] {
+  --bg: #14161a;
+  --surface: #1e2127;
+  --surface-alt: #262a31;
+  --border: #343941;
+  --text: #e7e9ee;
+  --text-muted: #9aa1ac;
+  --accent: #6d8bff;
+  --accent-contrast: #0c0e12;
+  --correct: #4cc272;
+  --incorrect: #ff6b6b;
+  --cell-blank: #2a2e35;
+  --cell-target: #3a331a;
+  --cell-target-border: #d9a441;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 24px 8px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.topbar h1 {
+  font-size: 1.4rem;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  max-width: 60ch;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 1.1rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.settings-panel {
+  max-width: 720px;
+  margin: 0 auto 12px;
+  padding: 14px 24px;
+  width: 100%;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.settings-row label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.settings-row select {
+  background: var(--surface-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  /* 16px min avoids iOS Safari auto-zooming the page on focus */
+  font-size: 16px;
+  max-width: 55%;
+}
+
+.settings-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 4px 4px;
+}
+
+.stats-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 4px 24px 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 14px;
+  min-width: 78px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.stat-wide {
+  min-width: 140px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: 2px;
+}
+
+main {
+  flex: 1;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 8px 24px 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  gap: 6px;
+  width: min(calc(100vw - 48px), 420px);
+  aspect-ratio: 1 / 1;
+  margin: 8px 0 20px;
+}
+
+.cell {
+  background: var(--cell-blank);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10%;
+}
+
+.cell.filled {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.cell.target {
+  background: var(--cell-target);
+  border: 2px dashed var(--cell-target-border);
+}
+
+.cell.target .question-mark {
+  font-size: clamp(1.4rem, 6vw, 2.2rem);
+  font-weight: 700;
+  color: var(--cell-target-border);
+}
+
+.shape-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.options-label {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.option-btn {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  width: 68px;
+  height: 68px;
+  padding: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.option-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.option-btn:disabled {
+  cursor: default;
+}
+
+.option-btn.correct-answer {
+  border-color: var(--correct);
+  background: color-mix(in srgb, var(--correct) 12%, var(--surface));
+}
+
+.option-btn.wrong-answer {
+  border-color: var(--incorrect);
+  background: color-mix(in srgb, var(--incorrect) 12%, var(--surface));
+}
+
+.feedback {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.feedback.correct {
+  color: var(--correct);
+}
+
+.feedback.incorrect {
+  color: var(--incorrect);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.explanation {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.explanation-body {
+  background: var(--surface-alt);
+  border-radius: 10px;
+  padding: 14px 14px 14px 30px;
+  margin-top: 8px;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.explanation-body li {
+  margin-bottom: 6px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  /* negative margin offsets the padding so it doesn't shift visual layout,
+     while still giving touch devices a bigger tap target */
+  padding: 8px;
+  margin: -8px;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+footer {
+  text-align: center;
+  padding: 12px 24px 28px;
+}

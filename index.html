@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Deductive Reasoning Practice</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-title">
+      <h1>Deductive Reasoning Practice</h1>
+      <p class="subtitle">Work out which shape belongs in the square marked with a <strong>?</strong>. No shape repeats in any row or column.</p>
+    </div>
+    <div class="topbar-actions">
+      <button id="settings-toggle" class="icon-btn" aria-label="Difficulty settings" title="Difficulty settings">⚙️</button>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+    </div>
+  </header>
+
+  <section id="settings-panel" class="settings-panel hidden" aria-label="Difficulty settings">
+    <div class="settings-row">
+      <label for="mode-select">Difficulty mode</label>
+      <select id="mode-select">
+        <option value="auto">Adaptive (recommended)</option>
+        <option value="manual">Manual</option>
+      </select>
+    </div>
+    <div class="settings-row manual-only hidden">
+      <label for="grid-size-select">Grid size</label>
+      <select id="grid-size-select">
+        <option value="4">4 x 4</option>
+        <option value="5">5 x 5</option>
+      </select>
+    </div>
+    <div class="settings-row manual-only hidden">
+      <label for="level-select">Difficulty level</label>
+      <select id="level-select">
+        <option value="0">Easy</option>
+        <option value="1">Moderate</option>
+        <option value="2">Challenging</option>
+        <option value="3">Hard</option>
+        <option value="4">Expert</option>
+      </select>
+    </div>
+    <p class="settings-note manual-only hidden">Manual mode fixes grid size and difficulty to your selection. Your score keeps tracking correct/incorrect in the background, so adaptive difficulty picks up where it left off if you switch back.</p>
+  </section>
+
+  <section class="stats-bar" aria-label="Session stats">
+    <div class="stat">
+      <span class="stat-value" id="stat-correct">0</span>
+      <span class="stat-label">Correct</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-incorrect">0</span>
+      <span class="stat-label">Incorrect</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value" id="stat-streak">0</span>
+      <span class="stat-label">Streak</span>
+    </div>
+    <div class="stat stat-wide">
+      <span class="stat-value" id="stat-tier">Easy (4x4)</span>
+      <span class="stat-label">Level</span>
+    </div>
+    <div class="stat" id="timer-wrap">
+      <span class="stat-value" id="stat-timer">0:00</span>
+      <span class="stat-label">Time <button id="timer-toggle" class="link-btn" type="button">hide</button></span>
+    </div>
+  </section>
+
+  <main>
+    <div id="grid" class="grid" style="--grid-size:4"></div>
+
+    <p class="options-label">What shape should appear in place of the question mark?</p>
+    <div id="options" class="options"></div>
+
+    <div id="feedback" class="feedback hidden" role="status" aria-live="polite"></div>
+
+    <div id="explanation" class="explanation hidden">
+      <button id="explanation-toggle" class="link-btn" type="button">Show explanation</button>
+      <ol id="explanation-body" class="explanation-body hidden"></ol>
+    </div>
+
+    <button id="next-btn" class="primary-btn hidden" type="button">Next question →</button>
+  </main>
+
+  <footer>
+    <button id="reset-progress" class="link-btn" type="button">Reset progress</button>
+  </footer>
+
+  <script src="js/engine.js"></script>
+  <script src="js/difficulty.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
